@@ -1,0 +1,25 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main () 
+{ 
+char ch;
+int a, b;
+float x;
+double y, z;
+ch = 'K';
+a = 2; b = 5;
+x = 5.5F;
+y = 6;
+z = ch + a + b + x + y;
+printf("\n\t The result of the conversion types: %lf\n", z);
+z = (double) ch + (double) a + (double) b  + (double) x + y;
+printf("\n\t The apparent conversion types: %lf\n", z);
+z = sqrt((float)a/b);
+printf("\n\t z = sqrt(%d/%d) = %lf\n", a, b, z);
+printf("\n\t z = lg(%d/%d) = %lf\n", a, b, log10(z));
+printf("\n\t z = ln(%d/%d) = %lf\n", a, b, log(z));
+printf("\n\t z = ln(10/2) = %lf\n", log(1));
+ printf("\n Press any key: ");
+ return 0;
+}
