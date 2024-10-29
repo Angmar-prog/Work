@@ -1,0 +1,39 @@
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main() {
+  int S;
+  cout << "Введите сумму, которую нужно оплатить: ";
+  cin >> S;
+
+  // Словарь для хранения количества купюр каждого номинала
+  map<int, int> bills;
+  bills[10000] = 0;
+  bills[1000] = 0;
+  bills[500] = 0;
+  bills[100] = 0;
+  bills[50] = 0;
+  bills[10] = 0;
+  bills[5] = 0;
+  bills[1] = 0;
+
+  // Номиналы купюр в порядке убывания
+  int denominations[] = {10000, 1000, 500, 100, 50, 10, 5, 1};
+
+  // Перебор номиналов
+  for (int i = 0; i < 8; i++) {
+    int denomination = denominations[i];
+    bills[denomination] = S / denomination;
+    S %= denomination;
+  }
+
+  // Вывод количества купюр каждого номинала
+  cout << "Количество купюр:\n";
+  for (auto it = bills.begin(); it != bills.end(); it++) {
+    cout << it->first << " руб.: " << it->second << endl;
+  }
+
+  return 0;
+}
