@@ -1,0 +1,65 @@
+import math
+import tkinter as tk
+from tkinter import messagebox
+
+def is_valid_triangle(a, b, c):
+    """Проверка, могут ли три стороны образовать треугольник."""
+    return a > 0 and b > 0 and c > 0 and (a + b > c) and (a + c > b) and (b + c > a)
+
+def triangle_type(a, b, c):
+    """Определение типа треугольника по длинам его сторон."""
+    if a == b and b == c:
+        return "Равносторонний треугольник"
+    elif a == b or b == c or a == c:
+        return "Равнобедренный треугольник"
+    else:
+        return "Разносторонний треугольник"
+
+def triangle_area(a, b, c):
+    """Вычисление площади треугольника по формуле Герона."""
+    s = (a + b + c) / 2
+    return math.sqrt(s * (s - a) * (s - b) * (s - c))
+
+def calculate():
+    """Функция для обработки ввода и вычислений."""
+    try:
+        a = float(entry_a.get())
+        b = float(entry_b.get())
+        c = float(entry_c.get())
+
+        if is_valid_triangle(a, b, c):
+            t_type = triangle_type(a, b, c)
+            area = triangle_area(a, b, c)
+            result_text = f"{t_type}, площадь: {area:.2f}"
+        else:
+            result_text = "Ошибка: Данные не могут образовать треугольник."
+        
+        messagebox.showinfo("Результат", result_text)
+    except ValueError:
+        messagebox.showerror("Ошибка", "Введите корректные числовые значения.")
+
+# Создание основного окна
+root = tk.Tk()
+root.title("Определение типа треугольника")
+
+# Создание интерфейса
+label_a = tk.Label(root, text="Введите длину стороны a:")
+label_a.pack()
+entry_a = tk.Entry(root)
+entry_a.pack()
+
+label_b = tk.Label(root, text="Введите длину стороны b:")
+label_b.pack()
+entry_b = tk.Entry(root)
+entry_b.pack()
+
+label_c = tk.Label(root, text="Введите длину стороны c:")
+label_c.pack()
+entry_c = tk.Entry(root)
+entry_c.pack()
+
+calculate_button = tk.Button(root, text="Рассчитать", command=calculate)
+calculate_button.pack()
+
+# Запуск главного цикла
+root.mainloop()
