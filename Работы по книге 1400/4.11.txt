@@ -1,0 +1,60 @@
+#include <iostream>
+
+class Speed {
+private:
+    double metersPerSecond; // Скорость в метрах в секунду
+
+public:
+    // Конструктор для километров в час
+    Speed(double kmh) {
+        metersPerSecond = kmh / 3.6; // Преобразуем км/ч в м/с
+    }
+
+    // Конструктор для метров в секунду
+    Speed(int mps) {
+        metersPerSecond = mps; // Скорость уже в м/с
+    }
+
+    // Метод для получения скорости в метрах в секунду
+    double toMetersPerSecond() const {
+        return metersPerSecond;
+    }
+
+    // Метод для сравнения скоростей
+    int compare(const Speed& other) const {
+        if (metersPerSecond < other.metersPerSecond) {
+            return -1; // Текущая скорость меньше
+        } else if (metersPerSecond > other.metersPerSecond) {
+            return 1; // Текущая скорость больше
+        } else {
+            return 0; // Скорости равны
+        }
+    }
+};
+
+int main() {
+    double kmhValue;
+    int mpsValue;
+
+    std::cout << "Введите скорость в километрах в час: ";
+    std::cin >> kmhValue;
+
+    std::cout << "Введите скорость в метрах в секунду: ";
+    std::cin >> mpsValue;
+
+    Speed kmhSpeed(kmhValue); // Создаем объект для километров в час
+    Speed mpsSpeed(mpsValue); // Создаем объект для метров в секунду
+
+    // Сравниваем скорости
+    int result = kmhSpeed.compare(mpsSpeed);
+
+    if (result < 0) {
+        std::cout << "Скорость в километрах в час меньше скорости в метрах в секунду." << std::endl;
+    } else if (result > 0) {
+        std::cout << "Скорость в метрах в секунду меньше скорости в километрах в час." << std::endl;
+    } else {
+        std::cout << "Скорости равны." << std::endl;
+    }
+
+    return 0;
+}

@@ -1,68 +1,151 @@
 4.11
 #include <iostream>
-using namespace std;
+#include <limits>
 
-int main() {
-    double speed_kmh, speed_ms;
+class SpeedComparator {
+private:
+    double kmPerHour;     // Скорость в км/ч
+    double metersPerSecond; // Скорость в м/с
 
-    // Ввод скоростей
-    cout << "Введите скорость в километрах в час: ";
-    cin >> speed_kmh;
+public:
+    // Метод для ввода значений с проверкой корректности
+    void inputSpeeds() {
+        while (true) {
+            std::cout << "Введите скорость в км/ч: ";
+            std::cin >> kmPerHour;
+            
+            // Проверка на корректность ввода (например, буквы вместо чисел)
+            if (std::cin.fail() || kmPerHour < 0) {
+                std::cout << "Ошибка: Введите положительное число!\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+            break;
+        }
 
-    cout << "Введите скорость в метрах в секунду: ";
-    cin >> speed_ms;
-
-    // Конвертация скорости из км/ч в м/с
-    double speed_kmh_to_ms = speed_kmh / 3.6;
-
-    // Сравнение скоростей
-    if (speed_kmh_to_ms > speed_ms) {
-        cout << "Скорость в километрах в час больше." << endl;
-    } else if (speed_kmh_to_ms < speed_ms) {
-        cout << "Скорость в метрах в секунду больше." << endl;
-    } else {
-        cout << "Скорости равны." << endl;
+        while (true) {
+            std::cout << "Введите скорость в м/с: ";
+            std::cin >> metersPerSecond;
+            
+            // Проверка на корректность ввода и отрицательность
+            if (std::cin.fail() || metersPerSecond < 0) {
+                std::cout << "Ошибка: Введите положительное число!\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+            break;
+        }
     }
 
+    // Метод для сравнения скоростей
+    void compare() const {
+        // Конвертируем км/ч в м/с (1 км/ч = 1000/3600 м/с)
+        double kmToM = kmPerHour * 1000 / 3600;
+
+        if (kmToM > metersPerSecond) {
+            std::cout << "Скорость в км/ч (" << kmPerHour << " км/ч) больше.\n";
+        } else if (kmToM < metersPerSecond) {
+            std::cout << "Скорость в м/с (" << metersPerSecond << " м/с) больше.\n";
+        } else {
+            std::cout << "Скорости равны.\n";
+        }
+    }
+};
+
+int main() {
+    SpeedComparator comparator;
+    comparator.inputSpeeds();
+    comparator.compare();
     return 0;
 }
 _____________________________________
 4.12
 #include <iostream>
-using namespace std;
+#include <cmath>
+#include <limits>
+
+class Circle {
+private:
+    double radius;
+
+public:
+    Circle(double r) {
+        if (r <= 0) {
+            throw std::invalid_argument("Радиус должен быть положительным!");
+        }
+        radius = r;
+    }
+
+    double getArea() const {
+        return M_PI * radius * radius;
+    }
+};
+
+class Square {
+private:
+    double side;
+
+public:
+    Square(double s) {
+        if (s <= 0) {
+            throw std::invalid_argument("Сторона квадрата должна быть положительной!");
+        }
+        side = s;
+    }
+
+    double getArea() const {
+        return side * side;
+    }
+};
 
 int main() {
-    double r, a; // Радиус круга и сторона квадрата
+    double radius, side;
 
-    // Ввод данных
-    cout << "Введите радиус круга (r): ";
-    cin >> r;
-
-    if (r <= 0) {
-        cout << "Ошибка: радиус должен быть положительным числом." << endl;
-        return 1; // Выход из программы с кодом ошибки
+    // Ввод радиуса
+    while (true) {
+        std::cout << "Введите радиус круга: ";
+        if (std::cin >> radius) {
+            if (radius > 0) break;
+            else std::cout << "Радиус должен быть положительным!\n";
+        } else {
+            std::cout << "Ошибка ввода! Введите число.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
 
-    cout << "Введите сторону квадрата (a): ";
-    cin >> a;
-
-    if (a <= 0) {
-        cout << "Ошибка: сторона квадрата должна быть положительным числом." << endl;
-        return 1; // Выход из программы с кодом ошибки
+    // Ввод стороны квадрата
+    while (true) {
+        std::cout << "Введите сторону квадрата: ";
+        if (std::cin >> side) {
+            if (side > 0) break;
+            else std::cout << "Сторона должна быть положительной!\n";
+        } else {
+            std::cout << "Ошибка ввода! Введите число.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
 
-    // Вычисление площадей
-    const double PI = 3.14159; // Значение числа π
-    double areaCircle = PI * r * r; // Площадь круга
-    double areaSquare = a * a; // Площадь квадрата
+    // Создание объектов
+    Circle circle(radius);
+    Square square(side);
 
     // Сравнение площадей
-    if (areaCircle > areaSquare) {
-        cout << "Площадь круга больше." << endl;
-    } else if (areaCircle < areaSquare) {
-        cout << "Площадь квадрата больше." << endl;
+    double circleArea = circle.getArea();
+    double squareArea = square.getArea();
+
+    std::cout << "\nПлощадь круга: " << circleArea << "\n";
+    std::cout << "Площадь квадрата: " << squareArea << "\n";
+
+    if (circleArea > squareArea) {
+        std::cout << "Больше площадь круга.\n";
+    } else if (circleArea < squareArea) {
+        std::cout << "Больше площадь квадрата.\n";
     } else {
-        cout << "Площади равны." << endl;
+        std::cout << "Площади равны.\n";
     }
 
     return 0;
@@ -70,44 +153,88 @@ int main() {
 _____________________________________
 4.13
 #include <iostream>
-using namespace std;
+#include <limits>
+
+class Material {
+private:
+    double mass;
+    double volume;
+
+public:
+    // Конструктор с проверкой на корректность
+    Material(double m, double v) {
+        if (v <= 0 || m <= 0) {
+            throw std::invalid_argument("Масса и объем должны быть положительными!");
+        }
+        mass = m;
+        volume = v;
+    }
+
+    // Метод вычисления плотности
+    double getDensity() const {
+        return mass / volume;
+    }
+};
+
+class DensityComparator {
+private:
+    Material material1;
+    Material material2;
+
+public:
+    // Конструктор принимает два материала
+    DensityComparator(Material m1, Material m2) : material1(m1), material2(m2) {}
+
+    // Метод сравнения плотностей
+    void compare() const {
+        double density1 = material1.getDensity();
+        double density2 = material2.getDensity();
+
+        if (density1 > density2) {
+            std::cout << "Материал первого тела имеет большую плотность.\n";
+        } else if (density1 < density2) {
+            std::cout << "Материал второго тела имеет большую плотность.\n";
+        } else {
+            std::cout << "Плотности обоих материалов равны.\n";
+        }
+    }
+};
+
+// Функция ввода данных с проверкой
+Material getInput(int index) {
+    double mass, volume;
+    while (true) {
+        try {
+            std::cout << "Тело " << index << ":\n";
+            std::cout << "Масса (кг): ";
+            std::cin >> mass;
+            std::cout << "Объем (м³): ";
+            std::cin >> volume;
+
+            // Проверка корректности ввода
+            if (std::cin.fail() || mass <= 0 || volume <= 0) {
+                throw std::runtime_error("Ошибка: Введите положительные числа!");
+            }
+
+            return Material(mass, volume);
+        } catch (const std::exception& e) {
+            std::cout << e.what() << " Повторите ввод.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+}
 
 int main() {
-    double m1, v1, m2, v2; // Массы и объемы двух тел
+    try {
+        Material mat1 = getInput(1);
+        Material mat2 = getInput(2);
 
-    // Ввод данных для первого тела
-    cout << "Введите массу первого тела (m1): ";
-    cin >> m1;
-    cout << "Введите объем первого тела (v1): ";
-    cin >> v1;
-
-    if (v1 <= 0 || m1 <= 0) {
-        cout << "Ошибка: масса и объем должны быть положительными числами." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Ввод данных для второго тела
-    cout << "Введите массу второго тела (m2): ";
-    cin >> m2;
-    cout << "Введите объем второго тела (v2): ";
-    cin >> v2;
-
-    if (v2 <= 0 || m2 <= 0) {
-        cout << "Ошибка: масса и объем должны быть положительными числами." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Вычисление плотностей
-    double density1 = m1 / v1; // Плотность первого материала
-    double density2 = m2 / v2; // Плотность второго материала
-
-    // Сравнение плотностей
-    if (density1 > density2) {
-        cout << "Материал первого тела имеет большую плотность." << endl;
-    } else if (density1 < density2) {
-        cout << "Материал второго тела имеет большую плотность." << endl;
-    } else {
-        cout << "Плотности материалов равны." << endl;
+        DensityComparator comparator(mat1, mat2);
+        comparator.compare();
+    } catch (const std::exception& e) {
+        std::cerr << "Критическая ошибка: " << e.what() << std::endl;
+        return 1;
     }
 
     return 0;
@@ -115,44 +242,78 @@ int main() {
 _____________________________________
 4.14
 #include <iostream>
-using namespace std;
+#include <limits>
+#include <stdexcept>
+
+class ElectricSegment {
+private:
+    double resistance; // Сопротивление в омах
+    double voltage;    // Напряжение в вольтах
+
+public:
+    // Конструктор с проверкой корректности данных
+    ElectricSegment(double r, double v) {
+        if (r <= 0 || v <= 0) {
+            throw std::invalid_argument("Сопротивление и напряжение должны быть положительными!");
+        }
+        resistance = r;
+        voltage = v;
+    }
+
+    // Метод расчета тока по закону Ома I = U/R
+    double getCurrent() const {
+        return voltage / resistance;
+    }
+};
+
+// Функция ввода данных для одного участка с обработкой ошибок
+ElectricSegment getInputSegment(int segmentNumber) {
+    double resistance, voltage;
+    while (true) {
+        try {
+            std::cout << "Участок " << segmentNumber << ":\n";
+            std::cout << "Введите сопротивление (Ом): ";
+            std::cin >> resistance;
+            std::cout << "Введите напряжение (Вольт): ";
+            std::cin >> voltage;
+
+            // Проверка корректности ввода
+            if (std::cin.fail() || resistance <= 0 || voltage <= 0) {
+                throw std::runtime_error("Ошибка: Введите положительные числа!");
+            }
+
+            return ElectricSegment(resistance, voltage);
+        }
+        catch (const std::exception& e) {
+            std::cout << e.what() << "\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+}
 
 int main() {
-    double U1, R1, U2, R2; // Напряжения и сопротивления двух участков
+    try {
+        // Ввод данных для двух участков
+        ElectricSegment segment1 = getInputSegment(1);
+        ElectricSegment segment2 = getInputSegment(2);
 
-    // Ввод данных для первого участка
-    cout << "Введите напряжение на первом участке (U1): ";
-    cin >> U1;
-    cout << "Введите сопротивление первого участка (R1): ";
-    cin >> R1;
+        // Расчет токов
+        double current1 = segment1.getCurrent();
+        double current2 = segment2.getCurrent();
 
-    if (U1 <= 0 || R1 <= 0) {
-        cout << "Ошибка: напряжение и сопротивление должны быть положительными числами." << endl;
-        return 1; // Выход из программы с кодом ошибки
+        // Сравнение и вывод результата
+        if (current1 < current2) {
+            std::cout << "Меньший ток протекает по первому участку.\n";
+        } else if (current1 > current2) {
+            std::cout << "Меньший ток протекает по второму участку.\n";
+        } else {
+            std::cout << "Токи в обоих участках равны.\n";
+        }
     }
-
-    // Ввод данных для второго участка
-    cout << "Введите напряжение на втором участке (U2): ";
-    cin >> U2;
-    cout << "Введите сопротивление второго участка (R2): ";
-    cin >> R2;
-
-    if (U2 <= 0 || R2 <= 0) {
-        cout << "Ошибка: напряжение и сопротивление должны быть положительными числами." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Вычисление силы тока для обоих участков
-    double I1 = U1 / R1; // Сила тока на первом участке
-    double I2 = U2 / R2; // Сила тока на втором участке
-
-    // Сравнение сил тока
-    if (I1 < I2) {
-        cout << "Меньший ток протекает по первому участку." << endl;
-    } else if (I1 > I2) {
-        cout << "Меньший ток протекает по второму участку." << endl;
-    } else {
-        cout << "Токи на обоих участках равны." << endl;
+    catch (const std::exception& e) {
+        std::cerr << "Критическая ошибка: " << e.what() << std::endl;
+        return 1;
     }
 
     return 0;

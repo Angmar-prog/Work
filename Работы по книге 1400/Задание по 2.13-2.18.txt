@@ -1,177 +1,285 @@
 2.13
 #include <iostream>
-using namespace std;
+#include <limits>
 
-int main() {
-    double a, b, x;
+class DensityCalculator {
+private:
+    double mass;   // Масса тела (кг)
+    double volume; // Объем тела (м³)
 
-    // Ввод коэффициентов a и b
-    cout << "Введите коэффициент a (a ≠ 0): ";
-    cin >> a;
+public:
+    // Метод для ввода массы и объема
+    void input_data() {
+        while (true) {
+            std::cout << "Введите массу тела (кг): ";
+            std::cin >> mass;
+            
+            // Проверка на корректность ввода (например, буквы вместо чисел)
+            if (std::cin.fail()) {
+                std::cout << "Ошибка: Введите число!\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
 
-    if (a == 0) {
-        cout << "Ошибка: коэффициент a не может быть равен нулю." << endl;
-        return 1; // Выход из программы с кодом ошибки
+            std::cout << "Введите объем тела (м³): ";
+            std::cin >> volume;
+
+            // Проверка на корректность ввода
+            if (std::cin.fail()) {
+                std::cout << "Ошибка: Введите число!\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            // Проверка, что объем не равен нулю
+            if (volume == 0) {
+                std::cout << "Ошибка: Объем не может быть нулевым!\n";
+                continue;
+            }
+
+            break;
+        }
     }
 
-    cout << "Введите коэффициент b: ";
-    cin >> b;
+    // Метод для расчета плотности (ρ = m/V)
+    double calculate_density() const {
+        return mass / volume;
+    }
+};
 
-    // Вычисление корня уравнения
-    x = -b / a;
-
-    // Вывод результата
-    cout << "Решение уравнения: x = " << x << endl;
-
+int main() {
+    DensityCalculator calculator;
+    calculator.input_data();
+    double density = calculator.calculate_density();
+    std::cout << "Плотность материала: " << density << " кг/м³" << std::endl;
     return 0;
 }
 ___________________________________________
 2.14
 #include <iostream>
-#include <cmath> // Для использования функции sqrt
-using namespace std;
+#include <cmath>
+#include <limits>
+
+class RightTriangle {
+private:
+    double a, b;  // Катеты треугольника
+
+public:
+    // Метод для ввода катетов
+    void setSides() {
+        while (true) {
+            std::cout << "Введите катеты a и b (положительные числа): ";
+            std::cin >> a >> b;
+
+            // Проверка корректности ввода (например, буквы вместо чисел)
+            if (std::cin.fail()) {
+                std::cout << "Ошибка: Введите числа!" << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            // Проверка на положительные значения
+            if (a <= 0 || b <= 0) {
+                std::cout << "Ошибка: Катеты должны быть положительными!" << std::endl;
+                continue;
+            }
+
+            break;
+        }
+    }
+
+    // Метод для вычисления гипотенузы
+    double getHypotenuse() const {
+        return std::sqrt(a * a + b * b);
+    }
+};
 
 int main() {
-    double a, b, c;
-
-    // Ввод длин катетов
-    cout << "Введите длину первого катета (a): ";
-    cin >> a;
-
-    if (a <= 0) {
-        cout << "Ошибка: длина катета должна быть положительной." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    cout << "Введите длину второго катета (b): ";
-    cin >> b;
-
-    if (b <= 0) {
-        cout << "Ошибка: длина катета должна быть положительной." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Вычисление гипотенузы
-    c = sqrt(a * a + b * b);
-
-    // Вывод результата
-    cout << "Длина гипотенузы (c): " << c << endl;
-
+    RightTriangle triangle;
+    triangle.setSides();
+    std::cout << "Гипотенуза: " << triangle.getHypotenuse() << std::endl;
     return 0;
 }
 ______________________________________________
 2.15
 #include <iostream>
-using namespace std;
+#include <cmath>
+#include <limits>
+
+class RingArea {
+private:
+    double outerRadius;  // Внешний радиус
+    double innerRadius;  // Внутренний радиус
+
+public:
+    // Метод для ввода радиусов с проверкой корректности
+    void setRadii() {
+        while (true) {
+            std::cout << "Введите внешний радиус (R) и внутренний радиус (r): ";
+            std::cin >> outerRadius >> innerRadius;
+
+            // Проверка на корректность ввода (например, буквы вместо чисел)
+            if (std::cin.fail()) {
+                std::cout << "Ошибка: Введите числа!\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            // Проверка условий радиусов
+            if (outerRadius <= 0 || innerRadius <= 0) {
+                std::cout << "Ошибка: Радиусы должны быть положительными!\n";
+            } else if (outerRadius <= innerRadius) {
+                std::cout << "Ошибка: Внешний радиус должен быть больше внутреннего!\n";
+            } else {
+                break;
+            }
+
+            // Если условия не выполнены, повторяем ввод
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+
+    // Метод для вычисления площади кольца
+    double calculateArea() const {
+        return M_PI * (std::pow(outerRadius, 2) - std::pow(innerRadius, 2));
+    }
+};
 
 int main() {
-    double R, r, area;
-    const double PI = 3.14159; // Значение числа π
-
-    // Ввод внешнего и внутреннего радиусов
-    cout << "Введите внешний радиус (R): ";
-    cin >> R;
-
-    if (R <= 0) {
-        cout << "Ошибка: внешний радиус должен быть положительным." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    cout << "Введите внутренний радиус (r): ";
-    cin >> r;
-
-    if (r < 0 || r >= R) {
-        cout << "Ошибка: внутренний радиус должен быть неотрицательным и меньше внешнего радиуса." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Вычисление площади кольца
-    area = PI * (R * R - r * r);
-
-    // Вывод результата
-    cout << "Площадь кольца: " << area << endl;
-
+    RingArea ring;
+    ring.setRadii();
+    double area = ring.calculateArea();
+    std::cout.precision(2);  // Устанавливаем точность вывода
+    std::cout << "Площадь кольца: " << area << " кв. единиц" << std::endl;
     return 0;
 }
 _____________________________________________
 2.16
 #include <iostream>
-#include <cmath> // Для использования функции sqrt
-using namespace std;
+#include <cmath>
+#include <limits>
+#include <iomanip>  // Для установки точности вывода
+
+class RightTriangle {
+private:
+    double a, b;  // Катеты треугольника
+
+public:
+    // Метод для ввода катетов
+    void setSides() {
+        while (true) {
+            std::cout << "Введите катеты a и b (положительные числа): ";
+            std::cin >> a >> b;
+
+            // Проверка корректности ввода (например, буквы вместо чисел)
+            if (std::cin.fail()) {
+                std::cout << "Ошибка: Введите числа!\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            // Проверка на положительные значения
+            if (a <= 0 || b <= 0) {
+                std::cout << "Ошибка: Катеты должны быть положительными!\n";
+                continue;
+            }
+
+            break;
+        }
+    }
+
+    // Метод для вычисления гипотенузы
+    double getHypotenuse() const {
+        return std::sqrt(a * a + b * b);
+    }
+
+    // Метод для вычисления периметра
+    double calculatePerimeter() const {
+        return a + b + getHypotenuse();
+    }
+};
 
 int main() {
-    double a, b, c, perimeter;
-
-    // Ввод длин катетов
-    cout << "Введите длину первого катета (a): ";
-    cin >> a;
-
-    if (a <= 0) {
-        cout << "Ошибка: длина катета должна быть положительной." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    cout << "Введите длину второго катета (b): ";
-    cin >> b;
-
-    if (b <= 0) {
-        cout << "Ошибка: длина катета должна быть положительной." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Вычисление гипотенузы
-    c = sqrt(a * a + b * b);
-
-    // Вычисление периметра
-    perimeter = a + b + c;
-
-    // Вывод результата
-    cout << "Периметр прямоугольного треугольника: " << perimeter << endl;
-
+    RightTriangle triangle;
+    triangle.setSides();
+    
+    double perimeter = triangle.calculatePerimeter();
+    
+    std::cout << std::fixed << std::setprecision(2);  // Установка точности вывода
+    std::cout << "Периметр треугольника: " << perimeter << " см" << std::endl;
+    
     return 0;
 }
 _________________________________________
 2.17
 #include <iostream>
-#include <cmath> // Для использования функции sqrt
-using namespace std;
+#include <cmath>
+#include <limits>
+#include <iomanip>
+
+class IsoscelesTrapezoid {
+private:
+    double baseMajor;  // Большее основание (a)
+    double baseMinor;  // Меньшее основание (b)
+    double height;     // Высота (h)
+
+public:
+    // Метод для ввода параметров трапеции с проверкой корректности
+    void setParameters() {
+        while (true) {
+            std::cout << "Введите большее основание (a), меньшее основание (b) и высоту (h): ";
+            std::cin >> baseMajor >> baseMinor >> height;
+
+            // Проверка на корректность ввода (например, буквы вместо чисел)
+            if (std::cin.fail()) {
+                std::cout << "Ошибка: Введите числа!\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            // Проверка условий:
+            // 1. Все параметры должны быть положительными
+            // 2. Большее основание должно быть больше меньшего
+            if (baseMajor <= 0 || baseMinor <= 0 || height <= 0) {
+                std::cout << "Ошибка: Все параметры должны быть положительными!\n";
+            } else if (baseMajor <= baseMinor) {
+                std::cout << "Ошибка: Большее основание должно быть больше меньшего!\n";
+            } else {
+                break;
+            }
+
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+
+    // Метод для вычисления длины боковой стороны (по теореме Пифагора)
+    double calculateSide() const {
+        double halfDifference = (baseMajor - baseMinor) / 2.0;
+        return std::sqrt(halfDifference * halfDifference + height * height);
+    }
+
+    // Метод для вычисления периметра
+    double calculatePerimeter() const {
+        double side = calculateSide();
+        return baseMajor + baseMinor + 2 * side;
+    }
+};
 
 int main() {
-    double a, b, h, c, perimeter;
-
-    // Ввод данных
-    cout << "Введите длину большего основания (a): ";
-    cin >> a;
-
-    if (a <= 0) {
-        cout << "Ошибка: длина большего основания должна быть положительной." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    cout << "Введите длину меньшего основания (b): ";
-    cin >> b;
-
-    if (b <= 0 || b >= a) {
-        cout << "Ошибка: длина меньшего основания должна быть положительной и меньше большего основания." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    cout << "Введите высоту трапеции (h): ";
-    cin >> h;
-
-    if (h <= 0) {
-        cout << "Ошибка: высота должна быть положительной." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Вычисление боковой стороны
-    c = sqrt(pow((a - b) / 2, 2) + pow(h, 2));
-
-    // Вычисление периметра
-    perimeter = a + b + 2 * c;
-
-    // Вывод результата
-    cout << "Периметр равнобедренной трапеции: " << perimeter << endl;
-
+    IsoscelesTrapezoid trapezoid;
+    trapezoid.setParameters();
+    
+    std::cout << std::fixed << std::setprecision(2);  // Установка точности вывода
+    std::cout << "Периметр равнобедренной трапеции: " 
+              << trapezoid.calculatePerimeter() << " единиц" << std::endl;
+    
     return 0;
 }

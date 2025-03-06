@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+class SumCalculator {
+private:
+    int n_;
+    std::vector<double> numbers_;
+
+public:
+    // Метод для ввода данных: сначала n, затем n вещественных чисел
+    void readNumbers() {
+        std::cout << "Введите количество чисел n: ";
+        std::cin >> n_;
+        numbers_.resize(n_);
+        std::cout << "Введите " << n_ << " вещественных чисел через пробел:\n";
+        for (double& num : numbers_) {
+            std::cin >> num;
+        }
+    }
+
+    // Метод для вычисления суммы
+    double getSum() const {
+        return std::accumulate(numbers_.begin(), numbers_.end(), 0.0);
+    }
+};
+
+int main() {
+    SumCalculator calculator;
+    calculator.readNumbers();
+    std::cout << "Сумма всех чисел: " << calculator.getSum() << std::endl;
+    return 0;
+}

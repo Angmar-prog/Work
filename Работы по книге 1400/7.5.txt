@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+class PayrollCalculator {
+private:
+    int employeeCount_;
+    std::vector<double> salaries_; // Вектор для хранения зарплат сотрудников
+
+public:
+    // Метод для ввода данных: сначала количество сотрудников, затем их зарплаты
+    void readData() {
+        std::cout << "Введите количество сотрудников: ";
+        std::cin >> employeeCount_;
+        salaries_.resize(employeeCount_);
+        std::cout << "Введите зарплаты сотрудников через пробел:\n";
+        for (double& salary : salaries_) {
+            std::cin >> salary;
+        }
+    }
+
+    // Метод для вычисления общей суммы выплат
+    double getTotalPay() const {
+        return std::accumulate(salaries_.begin(), salaries_.end(), 0.0);
+    }
+};
+
+int main() {
+    PayrollCalculator calculator;
+    calculator.readData();
+    std::cout << "Общая сумма выплаченных зарплат: " 
+              << calculator.getTotalPay() << std::endl;
+    return 0;
+}

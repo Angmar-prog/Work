@@ -1,0 +1,53 @@
+#include <iostream>
+
+class CircuitSection {
+private:
+    double resistance; // Сопротивление участка (в Омах)
+    double voltage;    // Напряжение на участке (в Вольтах)
+
+public:
+    // Конструктор
+    CircuitSection(double r, double v) : resistance(r), voltage(v) {}
+
+    // Метод для вычисления тока по закону Ома (I = U / R)
+    double current() const {
+        if (resistance != 0) {
+            return voltage / resistance; // Ток = Напряжение / Сопротивление
+        } else {
+            std::cerr << "Сопротивление не может быть равно нулю!" << std::endl;
+            return 0; // Возвращаем 0, если сопротивление равно нулю
+        }
+    }
+};
+
+int main() {
+    double resistance1, voltage1, resistance2, voltage2;
+
+    std::cout << "Введите сопротивление первого участка (в Омах): ";
+    std::cin >> resistance1;
+    std::cout << "Введите напряжение на первом участке (в Вольтах): ";
+    std::cin >> voltage1;
+
+    std::cout << "Введите сопротивление второго участка (в Омах): ";
+    std::cin >> resistance2;
+    std::cout << "Введите напряжение на втором участке (в Вольтах): ";
+    std::cin >> voltage2;
+
+    CircuitSection section1(resistance1, voltage1); // Создаем объект для первого участка
+    CircuitSection section2(resistance2, voltage2); // Создаем объект для второго участка
+
+    // Вычисляем токи
+    double current1 = section1.current();
+    double current2 = section2.current();
+
+    // Сравниваем токи
+    if (current1 < current2) {
+        std::cout << "По первому участку протекает меньший ток." << std::endl;
+    } else if (current1 > current2) {
+        std::cout << "По второму участку протекает меньший ток." << std::endl;
+    } else {
+        std::cout << "Токи на обоих участках равны." << std::endl;
+    }
+
+    return 0;
+}

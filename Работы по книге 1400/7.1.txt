@@ -1,0 +1,29 @@
+#include <iostream>
+#include <array>
+#include <numeric>
+
+class SumCalculator {
+private:
+    std::array<int, 10> numbers; // Массив для хранения 10 чисел
+
+public:
+    // Метод для ввода чисел с клавиатуры
+    void readNumbers() {
+        std::cout << "Введите 10 целых чисел через пробел:\n";
+        for (int& num : numbers) {
+            std::cin >> num;
+        }
+    }
+
+    // Метод для вычисления суммы
+    int getSum() const {
+        return std::accumulate(numbers.begin(), numbers.end(), 0);
+    }
+};
+
+int main() {
+    SumCalculator calculator;
+    calculator.readNumbers();
+    std::cout << "Сумма чисел: " << calculator.getSum() << std::endl;
+    return 0;
+}

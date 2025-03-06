@@ -1,0 +1,29 @@
+#include <iostream>
+#include <array>
+#include <numeric>
+
+class Dodecagon {
+private:
+    std::array<double, 12> sides; // Массив для хранения длин сторон
+
+public:
+    // Метод для ввода длин сторон
+    void readSides() {
+        std::cout << "Введите длины 12 сторон через пробел:\n";
+        for (double& side : sides) {
+            std::cin >> side;
+        }
+    }
+
+    // Метод для вычисления периметра
+    double getPerimeter() const {
+        return std::accumulate(sides.begin(), sides.end(), 0.0);
+    }
+};
+
+int main() {
+    Dodecagon polygon;
+    polygon.readSides();
+    std::cout << "Периметр 12-угольника: " << polygon.getPerimeter() << std::endl;
+    return 0;
+}

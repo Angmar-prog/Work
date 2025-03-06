@@ -1,0 +1,48 @@
+#include <iostream>
+
+class Body {
+private:
+    double volume; // Объем тела
+    double mass;   // Масса тела
+
+public:
+    // Конструктор
+    Body(double v, double m) : volume(v), mass(m) {}
+
+    // Метод для вычисления плотности
+    double density() const {
+        return mass / volume; // Плотность = масса / объем
+    }
+};
+
+int main() {
+    double volume1, mass1, volume2, mass2;
+
+    std::cout << "Введите объем первого тела (в кубических метрах): ";
+    std::cin >> volume1;
+    std::cout << "Введите массу первого тела (в килограммах): ";
+    std::cin >> mass1;
+
+    std::cout << "Введите объем второго тела (в кубических метрах): ";
+    std::cin >> volume2;
+    std::cout << "Введите массу второго тела (в килограммах): ";
+    std::cin >> mass2;
+
+    Body body1(volume1, mass1); // Создаем объект для первого тела
+    Body body2(volume2, mass2); // Создаем объект для второго тела
+
+    // Вычисляем плотности
+    double density1 = body1.density();
+    double density2 = body2.density();
+
+    // Сравниваем плотности
+    if (density1 > density2) {
+        std::cout << "Материал первого тела имеет большую плотность." << std::endl;
+    } else if (density1 < density2) {
+        std::cout << "Материал второго тела имеет большую плотность." << std::endl;
+    } else {
+        std::cout << "Плотности материалов обоих тел равны." << std::endl;
+    }
+
+    return 0;
+}

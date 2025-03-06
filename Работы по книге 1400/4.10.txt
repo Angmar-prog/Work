@@ -1,0 +1,60 @@
+#include <iostream>
+
+class Distance {
+private:
+    double meters; // Расстояние в метрах
+
+public:
+    // Конструктор для километров
+    Distance(double km) {
+        meters = km * 1000; // Преобразуем километры в метры
+    }
+
+    // Конструктор для футов
+    Distance(int ft) {
+        meters = ft * 0.3048; // Преобразуем футы в метры
+    }
+
+    // Метод для получения расстояния в метрах
+    double toMeters() const {
+        return meters;
+    }
+
+    // Метод для сравнения расстояний
+    int compare(const Distance& other) const {
+        if (meters < other.meters) {
+            return -1; // Текущее расстояние меньше
+        } else if (meters > other.meters) {
+            return 1; // Текущее расстояние больше
+        } else {
+            return 0; // Расстояния равны
+        }
+    }
+};
+
+int main() {
+    double kmValue;
+    int ftValue;
+
+    std::cout << "Введите расстояние в километрах: ";
+    std::cin >> kmValue;
+
+    std::cout << "Введите расстояние в футах: ";
+    std::cin >> ftValue;
+
+    Distance kmDistance(kmValue); // Создаем объект для километров
+    Distance ftDistance(ftValue);  // Создаем объект для футов
+
+    // Сравниваем расстояния
+    int result = kmDistance.compare(ftDistance);
+
+    if (result < 0) {
+        std::cout << "Расстояние в километрах меньше расстояния в футах." << std::endl;
+    } else if (result > 0) {
+        std::cout << "Расстояние в футах меньше расстояния в километрах." << std::endl;
+    } else {
+        std::cout << "Расстояния равны." << std::endl;
+    }
+
+    return 0;
+}

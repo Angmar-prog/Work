@@ -1,86 +1,113 @@
 3.29
 #include <iostream>
-using namespace std;
+#include <cassert>  // Для проверки предусловий
+
+class DigitAnalyzer {
+private:
+    int number;
+
+public:
+    // Конструктор с проверкой, что число >9
+    DigitAnalyzer(int num) {
+        assert(num > 9 && "Число должно быть больше 9!");
+        number = num;
+    }
+
+    // Метод для получения цифры единиц
+    int getUnits() const {
+        return number % 10;
+    }
+
+    // Метод для получения цифры десятков
+    int getTens() const {
+        return (number / 10) % 10;
+    }
+};
 
 int main() {
     int n;
+    std::cout << "Введите натуральное число n (n > 9): ";
+    std::cin >> n;
 
-    // Ввод числа
-    cout << "Введите натуральное число n (n > 9): ";
-    cin >> n;
-
-    if (n <= 9) {
-        cout << "Ошибка: число должно быть больше 9." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Находим количество единиц
-    int units = n % 10;
-
-    // Находим количество десятков
-    int tens = (n / 10) % 10;
-
-    // Вывод результатов
-    cout << "Число единиц: " << units << endl;
-    cout << "Число десятков: " << tens << endl;
+    DigitAnalyzer analyzer(n);
+    std::cout << "Цифра единиц: " << analyzer.getUnits() << std::endl;
+    std::cout << "Цифра десятков: " << analyzer.getTens() << std::endl;
 
     return 0;
 }
 _______________________________________________
 2.30
 #include <iostream>
-using namespace std;
+#include <cassert>  // Для проверки предусловий
+
+class DigitAnalyzer {
+private:
+    int number;
+
+public:
+    // Конструктор с проверкой, что число >99
+    DigitAnalyzer(int num) {
+        assert(num > 99 && "Число должно быть больше 99!");
+        number = num;
+    }
+
+    // Метод для получения цифры десятков
+    int getTens() const {
+        return (number / 10) % 10;
+    }
+
+    // Метод для получения цифры сотен
+    int getHundreds() const {
+        return (number / 100) % 10;
+    }
+};
 
 int main() {
     int n;
+    std::cout << "Введите натуральное число n (n > 99): ";
+    std::cin >> n;
 
-    // Ввод числа
-    cout << "Введите натуральное число n (n > 99): ";
-    cin >> n;
-
-    if (n <= 99) {
-        cout << "Ошибка: число должно быть больше 99." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Находим количество десятков
-    int tens = (n / 10) % 10;
-
-    // Находим количество сотен
-    int hundreds = (n / 100) % 10;
-
-    // Вывод результатов
-    cout << "Число десятков: " << tens << endl;
-    cout << "Число сотен: " << hundreds << endl;
+    DigitAnalyzer analyzer(n);
+    std::cout << "Цифра десятков: " << analyzer.getTens() << std::endl;
+    std::cout << "Цифра сотен: " << analyzer.getHundreds() << std::endl;
 
     return 0;
 }
 ____________________________________________
 3.31
 #include <iostream>
-using namespace std;
+#include <cassert>  // Для проверки предусловий
+
+class DigitAnalyzer {
+private:
+    int number;
+
+public:
+    // Конструктор с проверкой, что число >999
+    DigitAnalyzer(int num) {
+        assert(num > 999 && "Число должно быть больше 9!");
+        number = num;
+    }
+
+    // Метод для получения цифры единиц
+    int getUnits() const {
+        return number % 10;
+    }
+
+    // Метод для получения цифры десятков
+    int getTens() const {
+        return (number / 10) % 10;
+    }
+};
 
 int main() {
     int n;
+    std::cout << "Введите натуральное число n (n > 999): ";
+    std::cin >> n;
 
-    // Ввод числа
-    cout << "Введите натуральное число n (n > 999): ";
-    cin >> n;
-
-    if (n <= 99) {
-        cout << "Ошибка: число должно быть больше 99." << endl;
-        return 1; // Выход из программы с кодом ошибки
-    }
-
-    // Находим количество десятков
-    int tens = (n / 10) % 10;
-
-    // Находим количество сотен
-    int hundreds = (n / 100) % 10;
-
-    // Вывод результатов
-    cout << "Число десятков: " << tens << endl;
-    cout << "Число сотен: " << hundreds << endl;
+    DigitAnalyzer analyzer(n);
+    std::cout << "Цифра единиц: " << analyzer.getUnits() << std::endl;
+    std::cout << "Цифра десятков: " << analyzer.getTens() << std::endl;
 
     return 0;
 }

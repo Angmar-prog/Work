@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cmath> // Для M_PI и pow
+
+class Circle {
+private:
+    double radius; // Радиус круга
+
+public:
+    // Конструктор
+    Circle(double r) : radius(r) {}
+
+    // Метод для вычисления площади круга
+    double area() const {
+        return M_PI * pow(radius, 2); // Площадь = π * r^2
+    }
+};
+
+class Square {
+private:
+    double side; // Сторона квадрата
+
+public:
+    // Конструктор
+    Square(double s) : side(s) {}
+
+    // Метод для вычисления площади квадрата
+    double area() const {
+        return pow(side, 2); // Площадь = a^2
+    }
+};
+
+int main() {
+    double radius, side;
+
+    std::cout << "Введите радиус круга: ";
+    std::cin >> radius;
+
+    std::cout << "Введите сторону квадрата: ";
+    std::cin >> side;
+
+    Circle circle(radius); // Создаем объект для круга
+    Square square(side);   // Создаем объект для квадрата
+
+    // Вычисляем площади
+    double circleArea = circle.area();
+    double squareArea = square.area();
+
+    // Сравниваем площади
+    if (circleArea > squareArea) {
+        std::cout << "Площадь круга больше площади квадрата." << std::endl;
+    } else if (circleArea < squareArea) {
+        std::cout << "Площадь квадрата больше площади круга." << std::endl;
+    } else {
+        std::cout << "Площади круга и квадрата равны." << std::endl;
+    }
+
+    return 0;
+}
