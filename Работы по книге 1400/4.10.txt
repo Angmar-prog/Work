@@ -2,7 +2,7 @@
 
 class Distance {
 private:
-    double meters; // Расстояние в метрах
+    double meters; 
 
 public:
     // Конструктор для километров
