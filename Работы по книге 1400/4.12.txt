@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cmath> // Для M_PI и pow
+#include <cmath> 
 
 class Circle {
 private:
@@ -11,7 +11,7 @@ public:
 
     // Метод для вычисления площади круга
     double area() const {
-        return M_PI * pow(radius, 2); // Площадь = π * r^2
+        return M_PI * pow(radius, 2); 
     }
 };
 
@@ -25,7 +25,7 @@ public:
 
     // Метод для вычисления площади квадрата
     double area() const {
-        return pow(side, 2); // Площадь = a^2
+        return pow(side, 2); 
     }
 };
 
@@ -38,8 +38,8 @@ int main() {
     std::cout << "Введите сторону квадрата: ";
     std::cin >> side;
 
-    Circle circle(radius); // Создаем объект для круга
-    Square square(side);   // Создаем объект для квадрата
+    Circle circle(radius); 
+    Square square(side);   
 
     // Вычисляем площади
     double circleArea = circle.area();

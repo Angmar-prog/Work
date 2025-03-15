@@ -1,6 +1,6 @@
 3.29
 #include <iostream>
-#include <cassert>  // Для проверки предусловий
+#include <cassert>  
 
 class DigitAnalyzer {
 private:
@@ -38,7 +38,7 @@ int main() {
 _______________________________________________
 2.30
 #include <iostream>
-#include <cassert>  // Для проверки предусловий
+#include <cassert>  
 
 class DigitAnalyzer {
 private:
@@ -76,7 +76,7 @@ int main() {
 ____________________________________________
 3.31
 #include <iostream>
-#include <cassert>  // Для проверки предусловий
+#include <cassert>  
 
 class DigitAnalyzer {
 private:

@@ -7,12 +7,12 @@ private:
 public:
     // Конструктор для километров
     Distance(double km) {
-        meters = km * 1000; // Преобразуем километры в метры
+        meters = km * 1000; 
     }
 
     // Конструктор для футов
     Distance(int ft) {
-        meters = ft * 0.3048; // Преобразуем футы в метры
+        meters = ft * 0.3048; 
     }
 
     // Метод для получения расстояния в метрах
@@ -23,11 +23,11 @@ public:
     // Метод для сравнения расстояний
     int compare(const Distance& other) const {
         if (meters < other.meters) {
-            return -1; // Текущее расстояние меньше
+            return -1; 
         } else if (meters > other.meters) {
-            return 1; // Текущее расстояние больше
+            return 1; 
         } else {
-            return 0; // Расстояния равны
+            return 0; 
         }
     }
 };
@@ -42,10 +42,10 @@ int main() {
     std::cout << "Введите расстояние в футах: ";
     std::cin >> ftValue;
 
-    Distance kmDistance(kmValue); // Создаем объект для километров
-    Distance ftDistance(ftValue);  // Создаем объект для футов
+    Distance kmDistance(kmValue); 
+    Distance ftDistance(ftValue);  
 
-    // Сравниваем расстояния
+
     int result = kmDistance.compare(ftDistance);
 
     if (result < 0) {

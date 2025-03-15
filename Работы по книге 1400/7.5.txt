@@ -5,7 +5,7 @@
 class PayrollCalculator {
 private:
     int employeeCount_;
-    std::vector<double> salaries_; // Вектор для хранения зарплат сотрудников
+    std::vector<double> salaries_; 
 
 public:
     // Метод для ввода данных: сначала количество сотрудников, затем их зарплаты

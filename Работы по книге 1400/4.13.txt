@@ -11,7 +11,7 @@ public:
 
     // Метод для вычисления плотности
     double density() const {
-        return mass / volume; // Плотность = масса / объем
+        return mass / volume; 
     }
 };
 
@@ -28,8 +28,8 @@ int main() {
     std::cout << "Введите массу второго тела (в килограммах): ";
     std::cin >> mass2;
 
-    Body body1(volume1, mass1); // Создаем объект для первого тела
-    Body body2(volume2, mass2); // Создаем объект для второго тела
+    Body body1(volume1, mass1); 
+    Body body2(volume2, mass2); 
 
     // Вычисляем плотности
     double density1 = body1.density();

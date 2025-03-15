@@ -1,4 +1,4 @@
-class DigitProcessor:
+class A:
     def __init__(self, number):
         self.number = number
         # Преобразуем число в список цифр
@@ -14,6 +14,6 @@ class DigitProcessor:
 
 # Пример использования:
 if __name__ == "__main__":
-    num = DigitProcessor(3468219)
-    print("Максимальная цифра:", num.get_max_digit())  # Выведет 9
-    print("Минимальная цифра:", num.get_min_digit())   # Выведет 1
+    num = A(3468219)
+    print("Максимальная цифра:", num.get_max_digit())  
+    print("Минимальная цифра:", num.get_min_digit())   

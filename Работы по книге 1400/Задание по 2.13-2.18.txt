@@ -111,8 +111,8 @@ ______________________________________________
 
 class RingArea {
 private:
-    double outerRadius;  // Внешний радиус
-    double innerRadius;  // Внутренний радиус
+    double outerRadius;  
+    double innerRadius;  
 
 public:
     // Метод для ввода радиусов с проверкой корректности
@@ -163,11 +163,11 @@ _____________________________________________
 #include <iostream>
 #include <cmath>
 #include <limits>
-#include <iomanip>  // Для установки точности вывода
+#include <iomanip>  
 
 class RightTriangle {
 private:
-    double a, b;  // Катеты треугольника
+    double a, b;  
 
 public:
     // Метод для ввода катетов
@@ -211,7 +211,7 @@ int main() {
     
     double perimeter = triangle.calculatePerimeter();
     
-    std::cout << std::fixed << std::setprecision(2);  // Установка точности вывода
+    std::cout << std::fixed << std::setprecision(2);  
     std::cout << "Периметр треугольника: " << perimeter << " см" << std::endl;
     
     return 0;
@@ -277,7 +277,7 @@ int main() {
     IsoscelesTrapezoid trapezoid;
     trapezoid.setParameters();
     
-    std::cout << std::fixed << std::setprecision(2);  // Установка точности вывода
+    std::cout << std::fixed << std::setprecision(2); 
     std::cout << "Периметр равнобедренной трапеции: " 
               << trapezoid.calculatePerimeter() << " единиц" << std::endl;
     

@@ -4,7 +4,7 @@
 
 class SumCalculator {
 private:
-    std::array<int, 10> numbers; // Массив для хранения 10 чисел
+    std::array<int, 10> numbers; 
 
 public:
     // Метод для ввода чисел с клавиатуры

@@ -4,8 +4,8 @@
 
 class SpeedComparator {
 private:
-    double kmPerHour;     // Скорость в км/ч
-    double metersPerSecond; // Скорость в м/с
+    double kmPerHour;     
+    double metersPerSecond; 
 
 public:
     // Метод для ввода значений с проверкой корректности
@@ -247,8 +247,8 @@ _____________________________________
 
 class ElectricSegment {
 private:
-    double resistance; // Сопротивление в омах
-    double voltage;    // Напряжение в вольтах
+    double resistance; 
+    double voltage;    
 
 public:
     // Конструктор с проверкой корректности данных
