@@ -1,0 +1,41 @@
+program PasswordProtection;
+
+uses crt;
+
+const
+  CorrectPassword = '1234'; // Правильный пароль
+  MaxAttempts = 3; // Максимальное количество попыток
+
+var
+  UserPassword: string;
+  Attempts: integer;
+  IsCorrect: boolean;
+
+begin
+  clrscr; // Очистка экрана
+  writeln('ВВЕДИТЕ ПАРОЛЬ ДЛЯ ВХОДА В ПРОГРАММУ');
+  Attempts := MaxAttempts; // Устанавливаем максимальное количество попыток
+  IsCorrect := false;
+
+  while (Attempts > 0) and (not IsCorrect) do
+  begin
+    write('Введите пароль: ');
+    readln(UserPassword);
+
+    if UserPassword = CorrectPassword then
+    begin
+      IsCorrect := true;
+      writeln('ДОБРО ПОЖАЛОВАТЬ!');
+    end
+    else
+    begin
+      Attempts := Attempts - 1;
+      if Attempts > 0 then
+        writeln('ПАРОЛЬ НЕВЕРНЫЙ! ИСПОЛЬЗУЙТЕ ЕЩЕ ОДНУ ПОПЫТКУ')
+      else
+        writeln('ВЫ ПРЕВЫСИЛИ ДОПУСТИМОЕ ЧИСЛО ПОПЫТОК! ДО СВИДАНИЯ!');
+    end;
+  end;
+
+  readln; // Задержка перед закрытием программы
+end.
