@@ -1,0 +1,62 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <cstdlib> 
+#include <ctime>   
+
+using namespace std;
+
+int main() {
+
+    srand(static_cast<unsigned int>(time(0)));
+
+    int N;
+    cout << "Введите количество чисел (N): ";
+    cin >> N;
+
+    ofstream outFile("numbers.txt");
+    if (!outFile) {
+        cerr << "Ошибка при создании файла!" << endl;
+        return 1;
+    }
+
+    vector<int> numbers; // Вектор для хранения чисел
+    for (int i = 0; i < N; ++i) {
+        int randomNum = rand() % 201 - 100; 
+        numbers.push_back(randomNum);
+        outFile << randomNum << " ";
+    }
+    outFile.close();
+
+    ifstream inFile("numbers.txt");
+    if (!inFile) {
+        cerr << "Ошибка при открытии файла!" << endl;
+        return 1;
+    }
+
+    vector<int> fileNumbers;
+    int num;
+    while (inFile >> num) {
+        fileNumbers.push_back(num);
+    }
+    inFile.close();
+
+    int oppositePairsCount = 0;
+    for (size_t i = 0; i < fileNumbers.size(); ++i) {
+        for (size_t j = i + 1; j < fileNumbers.size(); ++j) {
+            if (fileNumbers[i] == -fileNumbers[j]) {
+                ++oppositePairsCount;
+            }
+        }
+    }
+
+    cout << "Сгенерированные числа: ";
+    for (const auto& number : numbers) {
+        cout << number << " ";
+    }
+    cout << endl;
+
+    cout << "Количество пар противоположных чисел: " << oppositePairsCount << endl;
+
+    return 0;
+}
