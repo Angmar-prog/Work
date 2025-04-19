@@ -1,62 +1,32 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <cstdlib> 
-#include <ctime>   
-
 using namespace std;
-
-int main() {
-
-    srand(static_cast<unsigned int>(time(0)));
-
-    int N;
-    cout << "Введите количество чисел (N): ";
-    cin >> N;
-
-    ofstream outFile("numbers.txt");
-    if (!outFile) {
-        cerr << "Ошибка при создании файла!" << endl;
-        return 1;
-    }
-
-    vector<int> numbers; // Вектор для хранения чисел
-    for (int i = 0; i < N; ++i) {
-        int randomNum = rand() % 201 - 100; 
-        numbers.push_back(randomNum);
-        outFile << randomNum << " ";
-    }
-    outFile.close();
-
-    ifstream inFile("numbers.txt");
-    if (!inFile) {
-        cerr << "Ошибка при открытии файла!" << endl;
-        return 1;
-    }
-
-    vector<int> fileNumbers;
-    int num;
-    while (inFile >> num) {
-        fileNumbers.push_back(num);
-    }
-    inFile.close();
-
-    int oppositePairsCount = 0;
-    for (size_t i = 0; i < fileNumbers.size(); ++i) {
-        for (size_t j = i + 1; j < fileNumbers.size(); ++j) {
-            if (fileNumbers[i] == -fileNumbers[j]) {
-                ++oppositePairsCount;
-            }
+int main(int argc, char* argv[]) 
+{
+    setlocale(LC_ALL, "rus");
+    int n, m,count=0;
+    int lL = -100, uL = 100;
+    srand(time(NULL));
+    cout << "n = ";
+    cin >> n;
+    cout << "m = ";
+    cin >> m;
+    ofstream fout_acc("number_file1.txt");
+    for (int i = 0; i < n; i++)
+    {
+        int r = lL + rand() % (uL - lL + 1);
+        if (count == m) 
+        {
+            cout << "\n" << r << " ";
+            fout_acc << "\n" << r << " ";
+            count = 0;
         }
+        else 
+        {
+            cout << r << " ";
+            fout_acc << r << " ";
+        }
+        count++;
     }
-
-    cout << "Сгенерированные числа: ";
-    for (const auto& number : numbers) {
-        cout << number << " ";
-    }
-    cout << endl;
-
-    cout << "Количество пар противоположных чисел: " << oppositePairsCount << endl;
-
-    return 0;
+    fout_acc.close();
 }

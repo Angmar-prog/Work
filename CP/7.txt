@@ -1,39 +1,29 @@
 #include <iostream>
-#include <sstream>
-#include <string>
-#include <limits>
-
+#include <fstream>
+#include <vector>
+#include <cstdlib> 
+#include <ctime>  
 using namespace std;
 
-int main() {
-    string text;
-    cout << "Введите текст: ";
-    getline(cin, text);
-
-    int minLength = numeric_limits<int>::max(); 
-    int maxLength = 0;                          
-
-    stringstream ss(text);
-    string word;
-
-    while (ss >> word) {
-        int length = word.length();
-
-        if (length < minLength) {
-            minLength = length;
-        }
-
-        if (length > maxLength) {
-            maxLength = length;
-        }
+int main()
+{
+    string Line;
+    int Min = 0, Max = 0, Count = 0;
+    cout << "Введите строку: \n";
+    getline(cin, Line);
+    for (int i = 0; i < Line.size(); i++)
+    {
+    if ((ispunct(Line[i])) || (isspace(Line[i])))
+    {
+    Min = Count;
+    i++;
+    Count = 0;
     }
-
-    if (minLength == numeric_limits<int>::max()) {
-        cout << "Текст не содержит слов." << endl;
-    } else {
-        cout << "Длина самого короткого слова: " << minLength << endl;
-        cout << "Длина самого длинного слова: " << maxLength << endl;
+    Count++;
+    if (Count > Min)
+    Max = Count;
     }
-
-    return 0;
+    cout << Line << endl;
+    cout << "Самое длинное слово - " << Max << endl;
+    cout << "Самое короткое слово - " << Min << endl;
 }
